@@ -1,112 +1,104 @@
+import React from "react";
 import { motion } from "framer-motion";
-import * as Lucide from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { 
+  faReact, faNodeJs, faJs, faPython, faDocker, faAws, faGitAlt, faEnvira, 
+  faTypescript,
+  faTailwindCss,
+  faVsco,
+  faWindows,
+  faHtml5,
+  faCss3
+} from "@fortawesome/free-brands-svg-icons";
+import { faDatabase, faCode, faMobileScreen, faServer, faFire, faDiagramNext, faPhone, faMobile } from "@fortawesome/free-solid-svg-icons";
 
-// Helper component for the small tech tags
-const TechBadge = ({ name }) => (
-  <span className="px-2 py-1 text-[10px] bg-white/5 border border-white/10 rounded-md text-gray-300 font-medium">
-    {name}
-  </span>
-);
-
-const SkillCard = ({ title, level, icon: Icon, description, tech, className }) => {
-  const IconComponent = Icon || Lucide.Code;
-
-  return (
-    <motion.div
-      variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0 }
-      }}
-      whileHover={{ y: -5 }}
-      className={`glass p-6 rounded-[2.5rem] border border-white/5 flex flex-col justify-between group hover:border-glow-violet/40 transition-all duration-500 ${className}`}
-    >
-      <div>
-        <div className="flex justify-between items-start mb-6">
-          <div className="p-3 bg-white/5 rounded-2xl group-hover:bg-glow-violet/20 group-hover:shadow-[0_0_20px_rgba(168,85,247,0.2)] transition-all">
-            <IconComponent className="text-white group-hover:text-glow-violet transition-colors" size={28} />
-          </div>
-          <span className="text-[9px] uppercase tracking-[0.2em] text-glow-blue font-bold opacity-70">
-            {level}
-          </span>
-        </div>
-        
-        <h3 className="text-xl font-display font-bold text-white mb-2">{title}</h3>
-        <p className="text-sm text-gray-400 leading-relaxed font-light mb-6">
-          {description}
-        </p>
-      </div>
-
-      {/* TECH STACK ICONS/TAGS AREA */}
-      <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
-        {tech.map((item) => (
-          <TechBadge key={item} name={item} />
-        ))}
-      </div>
-    </motion.div>
-  );
-};
+const skillCategories = [
+  {
+    title: "Frontend",
+    skills: [
+      { name: "React", icon: faReact },
+      { name: "Next.js", icon: faDiagramNext },
+      { name: "Tailwind", icon: faTailwindCss }, // Substitute or use faJs
+      { name: "TypeScript", icon: faTypescript },
+      { name: "Python", icon: faPython }, 
+      { name: "HTML", icon: faHtml5 },
+      { name: "CSS", icon: faCss3 },
+    ]
+  },
+  {
+    title: "Backend",
+    skills: [
+      { name: "Node.js", icon: faNodeJs },
+      { name: "Express", icon: faServer },
+      { name: "MongoDB", icon: faEnvira },
+      { name: "PostgreSQL", icon: faDatabase },
+      { name: "Firebase", icon: faFire },
+    ]
+  },
+  {
+    title: "Mobile & Tools",
+    skills: [
+      { name: "Flutter", icon: faMobileScreen },
+      { name: "Docker", icon: faDocker },
+      { name: "AWS", icon: faAws },
+      { name: "Git", icon: faGitAlt },
+      { name: "VS Code", icon: faVsco },
+      { name: "Windows", icon: faWindows },
+    ]
+  }
+];
 
 const Skills = () => {
   return (
-    <section id="skills" className="py-24 px-6 lg:px-20 bg-obsidian">
-      <div className="container mx-auto">
-        <div className="mb-16">
-          <motion.h2 
+    <section id="skills" className="py-24 bg-[#0a0a0a]">
+      <div className="container mx-auto px-6">
+        
+        <div className="mb-16 text-center lg:text-left">
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            className="text-5xl lg:text-7xl font-display uppercase tracking-tighter text-white"
+            viewport={{ once: true }}
+            className="flex items-center justify-center lg:justify-start gap-3 mb-4"
           >
-            Technical <span className="text-glow-violet italic">Arsenal</span>
-          </motion.h2>
+            <div className="w-8 h-[1px] bg-purple-500" />
+            <span className="text-purple-500 text-[10px] uppercase tracking-[0.5em] font-bold">
+              Tech Stack
+            </span>
+          </motion.div>
+          <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter text-white">
+            The <span className="text-purple-500 italic font-light">Arsenal</span>
+          </h2>
         </div>
 
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={{
-            visible: { transition: { staggerChildren: 0.1 } }
-          }}
-          className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-5"
-        >
-          {/* Frontend Card */}
-          <SkillCard 
-            className="md:col-span-2 md:row-span-2 bg-gradient-to-br from-white/5 to-glow-violet/5"
-            title="Frontend Architecture"
-            level="Mastery"
-            icon={Lucide.LayoutDashboard} 
-            description="Developing immersive, high-performance web applications with a focus on smooth motion and responsive logic."
-            tech={['React', 'Next.js', 'Vite', 'Tailwind v4', 'Framer Motion', 'Three.js']}
-          />
-
-          {/* Logic/Backend Card */}
-          <SkillCard 
-            className="md:col-span-2"
-            title="Systems & Logic"
-            level="Advanced"
-            icon={Lucide.Cpu}
-            description="Robust server-side implementation and complex state management logic."
-            tech={['JavaScript', 'Node.js', 'Python', 'Dart', 'Express']}
-          />
-
-          {/* Database Card (The New One) */}
-          <SkillCard 
-            title="Data & Auth"
-            level="Advanced"
-            icon={Lucide.Database}
-            description="Architecting scalable database schemas and secure authentication."
-            tech={['MongoDB', 'Firebase', 'SQL', 'Prisma']}
-          />
-
-          {/* Design/Mobile Card */}
-          <SkillCard 
-            title="UI & Mobile"
-            level="Pro"
-            icon={Lucide.Smartphone}
-            description="Bridging the gap between Figma designs and native mobile performance."
-            tech={['Flutter', 'Figma', 'Adobe Suite']}
-          />
-        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {skillCategories.map((category, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="group p-8 rounded-[2.5rem] border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] transition-all duration-500"
+            >
+              <h3 className="text-white/40 text-[10px] uppercase tracking-[0.3em] font-bold mb-10 group-hover:text-purple-500 transition-colors">
+                {category.title}
+              </h3>
+              
+              <div className="grid grid-cols-2 gap-y-8 gap-x-4">
+                {category.skills.map((skill) => (
+                  <div key={skill.name} className="flex items-center gap-3 group/item">
+                    <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/5 group-hover/item:border-purple-500/50 group-hover/item:text-purple-500 transition-all duration-300">
+                      <FontAwesomeIcon icon={skill.icon} className="text-lg" />
+                    </div>
+                    <span className="text-gray-400 text-sm font-light group-hover/item:text-white transition-colors">
+                      {skill.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

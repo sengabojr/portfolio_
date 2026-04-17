@@ -67,7 +67,7 @@ const Testimonials = () => {
     {/* Centered Sharp Underline */}
     <motion.div 
       initial={{ width: 0, opacity: 0 }}
-      whileInView={{ width: "120px", opacity: 1 }}
+      whileInView={{ width: "320px", opacity: 1 }}
       transition={{ delay: 0.4, duration: 1, ease: "easeOut" }}
       className="absolute -bottom-4 left-1/2 -translate-x-1/2 h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-transparent shadow-[0_0_12px_#a855f7]"
     />
