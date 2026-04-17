@@ -43,7 +43,7 @@ const Home = () => {
         
         <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-display leading-tight tracking-tighter uppercase text-white">
-            Sengabo Jr. <br />
+            Mugisha Benjamin <br />
             {/* The "Flexing" Dynamic Text */}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-glow-violet to-glow-blue italic font-medium tracking-tight normal-case">
               {formatWord(roles[index]).substring(0, subIndex)}

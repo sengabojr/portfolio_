@@ -9,6 +9,7 @@ import Projects from "./pages/Projects";
 import Testimonials from "./pages/Testimonials";
 import Orbit from "./pages/Orbit";
 import Contact from "./pages/Contact";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Testimonials />
       <Orbit />
       <Contact />
+      <Footer />
     </main>
   );
 }
