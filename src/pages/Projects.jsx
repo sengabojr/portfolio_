@@ -5,7 +5,7 @@ import * as Lucide from "lucide-react";
 const projects = [
   {
     id: 1,
-    title: "Ocean School Finder",
+    title: "Rwandan School Finder",
     category: "Web Architecture",
     description: "High-end digital platform for discovering and connecting with Rwandan schools.",
     tags: ["React", "Tailwind v4", "MongoDB Atlas"],

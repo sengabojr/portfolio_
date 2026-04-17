@@ -1,110 +1,110 @@
-import { motion } from "framer-motion";
-import { useRef } from "react";
-import * as Lucide from "lucide-react";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faQuoteLeft, faMagic } from "@fortawesome/free-solid-svg-icons";
 
 const testimonials = [
   {
-    quote: "Working with Sengabo Jr. is like watching digital wizardry. He turned our Figma designs into an optimized Next.js masterpiece faster than scheduled.",
-    name: "Alex Johnson",
-    role: "Product Lead @ Midnight",
-    color: "violet",
+    name: "Alex Rivera",
+    role: "CEO, TechFlow",
+    text: "Working with Sengabo is like watching a digital architect at work. The attention to detail is unmatched.",
+    color: "from-purple-500/20",
   },
   {
-    quote: "His frontend logic at Saint Laurent is flawless. The animations are fluid, and the code structure is intuitive and scalable.",
     name: "Sarah Chen",
-    role: "Senior Architect @ YSL",
-    color: "blue",
+    role: "Product Lead",
+    text: "He doesn't just write code; he crafts experiences. Our conversion rate jumped by 40% after the redesign.",
+    color: "from-blue-500/20",
   },
   {
-    quote: "Sengabo Jr. doesn't just write code; he drafts immersive digital experiences. The level of detail in his motion design is unmatched.",
-    name: "Benjamin Mugisha",
-    role: "Dev Manager @ K-Hub",
-    color: "violet",
+    name: "Marcus Thorne",
+    role: "Creative Director",
+    text: "The 'Wizardry' isn't just a gimmick. The speed and smoothness of his animations are world-class.",
+    color: "from-emerald-500/20",
+  },
+  {
+    name: "Elena Vance",
+    role: "Founder, Zenith",
+    text: "A rare talent who understands the bridge between complex backends and high-end aesthetic frontends.",
+    color: "from-pink-500/20",
   },
 ];
 
 const Testimonials = () => {
-  const scrollRef = useRef(null);
+  const targetRef = useRef(null);
+  
+  // 1. Track scroll progress through this specific section
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+  });
+
+  // 2. Map vertical scroll (0 to 1) to horizontal movement (-10% to -70%)
+  // Adjust "-70%" based on how many cards you have
+  const x = useTransform(scrollYProgress, [0, 1], ["10%", "-60%"]);
 
   return (
-    <section id="testimonials" className="py-32 bg-obsidian overflow-hidden">
-      <div className="container mx-auto px-6 lg:px-20">
+    // The container height (300vh) determines how long the user has to scroll
+    <section 
+      id="testimonials" 
+      ref={targetRef} 
+      className="relative h-[300vh] bg-[#0a0a0a]"
+    >
+      {/* 3. The Sticky Container - keeps the content visible while scrolling */}
+      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
         
-        <div className="flex flex-col items-center mb-20">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-5xl lg:text-7xl font-display uppercase tracking-tighter text-white text-center"
-          >
-            Echoes of <span className="text-glow-violet italic">Wizardry</span>
-          </motion.h2>
-          <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-glow-violet to-transparent mt-4" />
-        </div>
+        {/* Header Text */}
+<div className="container mx-auto px-6 lg:px-20 mb-20 text-center">
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    className="relative inline-block"
+  >
+    <h2 className="text-6xl md:text-8xl font-bold tracking-tighter text-white leading-none">
+      Echoes of <span className="text-purple-500 italic font-light">Wizardry</span>
+    </h2>
+    
+    {/* Centered Sharp Underline */}
+    <motion.div 
+      initial={{ width: 0, opacity: 0 }}
+      whileInView={{ width: "120px", opacity: 1 }}
+      transition={{ delay: 0.4, duration: 1, ease: "easeOut" }}
+      className="absolute -bottom-4 left-1/2 -translate-x-1/2 h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-transparent shadow-[0_0_12px_#a855f7]"
+    />
+  </motion.div>
+</div>
+        {/* 4. The Horizontal Track */}
+        <motion.div style={{ x }} className="flex gap-8 px-10">
+          {testimonials.map((item, index) => (
+            <div 
+              key={index}
+              className={`flex-shrink-0 w-[350px] md:w-[450px] h-[300px] bg-gradient-to-br ${item.color} to-transparent backdrop-blur-md rounded-[3rem] border border-white/5 p-10 flex flex-col justify-between relative group overflow-hidden`}
+            >
+              {/* Decorative Icon */}
+              <div className="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                <FontAwesomeIcon icon={faMagic} size="8x" />
+              </div>
 
-        {/* MASKED VIEWPORT */}
-        <div className="relative">
-          {/* Subtle Side Fades to indicate more content */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-obsidian to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-obsidian to-transparent z-10 pointer-events-none" />
+              <FontAwesomeIcon icon={faQuoteLeft} className="text-purple-500 text-3xl mb-4" />
+              
+              <p className="text-white/80 text-lg md:text-xl font-light leading-relaxed italic">
+                "{item.text}"
+              </p>
 
+              <div>
+                <h4 className="text-white font-bold tracking-widest uppercase text-sm">{item.name}</h4>
+                <p className="text-purple-400 text-[10px] uppercase tracking-[0.2em] mt-1">{item.role}</p>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Visual Progress Bar (Bottom) */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-1/3 h-[1px] bg-white/10 overflow-hidden">
           <motion.div 
-            ref={scrollRef} 
-            className="flex gap-8 px-10 cursor-grab active:cursor-grabbing"
-            drag="x"
-            // dragConstraints ensures the user can't drag the cards off-screen permanently
-            dragConstraints={{ right: 0, left: -800 }} 
-          >
-            {testimonials.map((t, index) => (
-              <motion.div 
-                key={index}
-                whileHover={{ y: -10 }}
-                className="flex-shrink-0 w-[85vw] md:w-[450px] lg:w-[500px] h-[400px] glass p-10 rounded-[3rem] border border-white/5 flex flex-col justify-between group relative overflow-hidden transition-colors duration-500 hover:border-white/20"
-              >
-                {/* Background Glow */}
-                <div className={`absolute -top-20 -right-20 w-40 h-40 blur-[80px] opacity-20 group-hover:opacity-40 transition-opacity rounded-full ${t.color === 'violet' ? 'bg-glow-violet' : 'bg-glow-blue'}`} />
-
-                <div className="relative z-10">
-                  <div className="flex justify-between items-start mb-8">
-                    <Lucide.Quote 
-                      className={t.color === 'violet' ? 'text-glow-violet' : 'text-glow-blue'} 
-                      size={40} 
-                      strokeWidth={1}
-                    />
-                    <div className="flex gap-1 opacity-50">
-                      {[...Array(5)].map((_, i) => <Lucide.Star key={i} size={12} fill="white" className="text-white" />)}
-                    </div>
-                  </div>
-
-                  <p className="text-gray-300 text-lg md:text-xl leading-relaxed font-light italic">
-                    "{t.quote}"
-                  </p>
-                </div>
-                
-                <div className="relative z-10 flex items-center gap-4 pt-6 border-t border-white/5">
-                   <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center font-display text-white text-xl shadow-inner">
-                     {t.name.charAt(0)}
-                   </div>
-                   <div>
-                      <h4 className="text-white font-bold text-sm uppercase tracking-wider">{t.name}</h4>
-                      <p className={`text-[10px] tracking-[0.2em] uppercase mt-1 font-bold ${t.color === 'violet' ? 'text-glow-violet' : 'text-glow-blue'}`}>
-                        {t.role}
-                      </p>
-                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-        
-        <div className="mt-16 flex flex-col items-center gap-2">
-          <div className="w-40 h-[2px] bg-white/5 rounded-full overflow-hidden">
-            <motion.div 
-              className="h-full bg-glow-violet"
-              animate={{ x: [-40, 40] }}
-              transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
-            />
-          </div>
-          <span className="text-[10px] text-gray-600 uppercase tracking-[0.3em]">Slide to Explore</span>
+            style={{ scaleX: scrollYProgress }} 
+            className="h-full bg-purple-500 origin-left"
+          />
         </div>
       </div>
     </section>

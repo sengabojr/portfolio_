@@ -1,4 +1,5 @@
 import React from "react";
+// Import using specific names
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -11,16 +12,16 @@ import Contact from "./pages/Contact";
 
 function App() {
   return (
-    <main className="bg-obsidian min-h-screen text-white">
+    <main className="bg-[#0a0a0a] min-h-screen text-white">
       <Navbar />
-      <Home />         {/* Must have id="home" */}
-      <About />        {/* Must have id="about" */}
-      <Experience />   {/* Must have id="experience" */}
-      <Skills />       {/* Must have id="skills" */}
-      <Projects />     {/* Must have id="projects" */}
-      <Testimonials /> {/* Must have id="testimonials" */}
-      <Orbit />        {/* Must have id="orbit" */}
-      <Contact />      {/* Must have id="contact" */}
+      <Home />
+      <About />
+      <Experience />
+      <Skills />
+      <Projects />
+      <Testimonials />
+      <Orbit />
+      <Contact />
     </main>
   );
 }
