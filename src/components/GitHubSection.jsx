@@ -36,7 +36,7 @@ const GitHubSection = () => {
           <div className="w-full max-w-4xl overflow-x-auto flex justify-center custom-scrollbar [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] md:[mask-image:none]">
             {Calendar ? (
               <Calendar
-                username="sengabojr"
+                username="yegor256"
                 blockSize={12}
                 blockMargin={5}
                 fontSize={13}
